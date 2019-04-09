@@ -6,9 +6,7 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import simpledialog 
 
-
-#acciones menu
-
+color=["#ff7043", "#000000", "#009E6C", "#5e35b1", "#0288d1", "#f44336", "#d4e157"]
     
 #ventana del menú
 vmenu=Tk()
@@ -17,12 +15,14 @@ vmenu.geometry("50x50")
 #vmenu.geometry("420x270")
 vmenu.configure(backg="#2320FC")
 
-
+#opción salir menú
 def salir():
     exit()
 
+#función tablero 1
 def tablero1():
-#btn juego totito
+
+#botones juego totito
     for i in range(0,9):
         tablero1.append("X")
     #boton0
@@ -61,24 +61,22 @@ def tablero1():
     boton8=Button(vtablero,width=18,height=8)#command=cambiar(0)
     listaBotones.append(boton8)
     boton8.place(x=430,y=450)
-
+#variables
 menu=Menu(vmenu)
 vmenu.config(menu=menu) 
-
+#opciones menú
 subm=Menu(menu)
 menu.add_cascade(label="Menú Juego Totito", menu=subm)
 subm.add_command(label="Juego 1", command=tablero1)
-subm.add_command(label="Juego 2")
-subm.add_command(label="Juego 3")
+#subm.add_command(label="Juego 2", command=tablero2)
+#subm.add_command(label="Juego 3", command=tablero3)
 subm.add_command(label="Salir del Juego", command=salir)
 
-
-
-#tablero del juego
+#tablero gráfico tkinter
 vtablero=Tk()
 vtablero.title("------Juego TOTITO 1----")
 vtablero.geometry("600x650")
-vtablero.configure(backg="#009E6C")
+vtablero.configure(backg=random.choice(color))
 
 turno = 0
 Jugador1=""
@@ -87,29 +85,7 @@ listaBotonesm = []
 listaBotones = []
 tablero1 = [] #variables que se encontraran en el tablero
 turnoJugador = StringVar()
-'''
-#btn menú totito
-for i in range(0,4):
-    tablero.append("X")
-#boton menu 0 (modo 1)
-btnm0=Button(vmenu,width=15,height=5)#command=cambiar(0)
-listaBotonesm.append(btnm0) 
-btnm0.place(x=30,y=50)
-#boton menu 1 (modo 2)
-btnm0=Button(vmenu,width=15,height=5)#command=cambiar(0)
-listaBotonesm.append(btnm0) 
-btnm0.place(x=150,y=50)
-#boton menu 2 (modo 3)
-btnm0=Button(vmenu,width=15,height=5)#command=cambiar(0)
-listaBotonesm.append(btnm0) 
-btnm0.place(x=270,y=50)
-#boton menu 3 (salida)
-btnm0=Button(vmenu,width=20,height=3)#command=cambiar(0)
-listaBotonesm.append(btnm0) 
-btnm0.place(x=130,y=170)
-'''
 
-
-
+#se inicializa tablero
 vtablero.mainloop()
 vmenu.mainloop()
