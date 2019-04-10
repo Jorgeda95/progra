@@ -16,6 +16,7 @@ tventana=("600x750")
 turno = 0
 Jugador1=""
 Jugador2=""
+Computadora=["Corn", "Tosk", "Rabito", "Spiki", "Triki", "Ham-jam", "Jujo", "Sirgo", "Vomi-t", "Weypo", "Lopini", "Juralio", "Cerki", "Laleña", "Ñopir", "Canfi", "Ufito", "Sansal","Aporito","Boliza","Batiman","Iron-oxidado"] 
 listaBotones = []
 t1 = [] #variables que se encontraran en el tablero # X O N
 t2 = []
@@ -50,6 +51,41 @@ def comenzarJuego():
     label.config(bg=comenzarc, fg=textobtn, font=("Roboto",20))
     label.config(textvariable=turnoJugador)
 
+def comenzarJuego2():
+    
+    for i in range(0,9):
+        listaBotones[i].config(state="normal")
+        listaBotones[i].config(text="")#se limpian los botones
+        t2[i] = "N"
+    
+    global Jugador1, Computadora
+    Jugador1 = simpledialog.askstring("Jugador #1", "Ingrese el nombre del Jugador #1: ")
+    Compu=str(random.choice(Computadora))
+    turnoJugador = StringVar()
+    turnoJugador.set(Jugador1)
+    label = Label(vtablero, text="Nombre")
+    label.pack(anchor="center")
+    label.config(bg=comenzarc, fg=textobtn, font=("Roboto",20))
+    label.config(textvariable=turnoJugador)
+
+def comenzarJuego3():
+    
+    for i in range(0,9):
+        listaBotones[i].config(state="normal")
+        listaBotones[i].config(text="")#se limpian los botones
+        t3[i] = "N"
+    
+    global Jugador1, Jugador2
+    Jugador1 = (input("Ingrese el nombre del Jugador #1: "))
+    Jugador2 = (input("Ingrese el nombre del Jugador #2: "))
+    Jugadores=["Jugador1", "Jugador2"]
+    turnoJugador = StringVar()
+    turnoJugador.set(Jugadores)
+    label = Label(vtablero, textvariable=random.choice(Jugadores))
+    label.pack(anchor="center")
+    label.config(bg=comenzarc, fg=textobtn, font=("Roboto",20))
+    label.config(textvariable=turnoJugador)
+
 def cambiar(num):
     global turno,Jugador1,Jugador2
     if t1[num]=="N" and turno == 0:
@@ -63,6 +99,23 @@ def cambiar(num):
         listaBotones[num].config(text="O")
         listaBotones[num].config(bg="#cfd8dc")
         t1[num]="O"
+        turno = 0
+        turnoJugador.set("Turno de:" + "Jugador1")
+    listaBotones[num].config(state="disable")
+
+def cambiar3(num):
+    global turno,Jugador1,Jugador2
+    if t3[num]=="N" and turno == 0:
+        listaBotones[num].config(text="X")
+        listaBotones[num].config(bg=textobtn)
+        t3[num]="X"
+        turno = 1
+        turnoJugador.set("Turno de:" + "Jugador2")
+
+    elif t3[num]=="N" and turno ==1:
+        listaBotones[num].config(text="O")
+        listaBotones[num].config(bg="#cfd8dc")
+        t3[num]="O"
         turno = 0
         turnoJugador.set("Turno de:" + "Jugador1")
     listaBotones[num].config(state="disable")
@@ -96,27 +149,27 @@ def ganador():
 #verifica el ganador de misere
 def ganador3():
     #Perdio Xhorizontal
-    if (t1[0]=="X" and t1[1]=="X" and t1[2]=="X") or (t1[3]=="X" and t1[4]=="X" and t1[5]=="X") or (t1[6]=="X" and t1[7]=="X" and t1[8]=="X"):
+    if (t3[0]=="X" and t3[1]=="X" and t3[2]=="X") or (t3[3]=="X" and t3[4]=="X" and t3[5]=="X") or (t3[6]=="X" and t3[7]=="X" and t3[8]=="X"):
         blok()
         messagebox.showinfo("Perdio", "Perdiste Jugador"+ "Jugador1")
     #Perdio X vertical
-    elif (t1[0]=="X" and t1[3]=="X" and t1[6]=="X") or (t1[1]=="X" and t1[4]=="X" and t1[7]=="X") or (t1[2]=="X" and t1[5]=="X" and t1[8]=="X"):
+    elif (t3[0]=="X" and t3[3]=="X" and t3[6]=="X") or (t3[1]=="X" and t3[4]=="X" and t3[7]=="X") or (t3[2]=="X" and t3[5]=="X" and t3[8]=="X"):
         blok()
         messagebox.showinfo("Perdio", "Perdiste Jugador"+ "Jugador1")
     #Perdio X cruzado
-    elif (t1[0]=="X" and t1[4]=="X" and t1[8]=="X") or (t1[2]=="X" and t1[4]=="X" and t1[6]=="X"):
+    elif (t3[0]=="X" and t3[4]=="X" and t3[8]=="X") or (t3[2]=="X" and t3[4]=="X" and t3[6]=="X"):
         blok()
         messagebox.showinfo("Perdio", "Perdiste Jugador"+ "Jugador1")
     #Perdio O horizontal
-    elif (t1[0]=="O" and t1[1]=="O" and t1[2]=="O") or (t1[3]=="O" and t1[4]=="O" and t1[5]=="O") or (t1[6]=="O" and t1[7]=="O" and t1[8]=="O"):
+    elif (t3[0]=="O" and t3[1]=="O" and t3[2]=="O") or (t3[3]=="O" and t3[4]=="O" and t3[5]=="O") or (t3[6]=="O" and t3[7]=="O" and t3[8]=="O"):
         blok()
     messagebox.showinfo("Perdio", "Perdiste Jugador"+ "Jugador2")
     #Perdio O vertical
-    if (t1[0]=="O" and t1[3]=="O" and t1[6]=="O") or (t1[1]=="O" and t1[4]=="O" and t1[7]=="O") or (t1[2]=="O" and t1[5]=="O" and t1[8]=="O"):
+    if (t3[0]=="O" and t3[3]=="O" and t3[6]=="O") or (t3[1]=="O" and t3[4]=="O" and t3[7]=="O") or (t3[2]=="O" and t3[5]=="O" and t3[8]=="O"):
         blok()
         messagebox.showinfo("Perdio", "Perdiste Jugador"+ "Jugador2")
     #Perdio O cruzado
-    elif (t1[0]=="O" and t1[4]=="O" and t1[8]=="O") or (t1[2]=="O" and t1[4]=="O" and t1[6]=="O"):
+    elif (t3[0]=="O" and t3[4]=="O" and t3[8]=="O") or (t3[2]=="O" and t3[4]=="O" and t3[6]=="O"):
         blok()
         messagebox.showinfo("Perdio", "Perdiste Jugador"+ "Jugador2")
 
@@ -228,7 +281,7 @@ def tablero2():
     listaBotones.append(boton8)
     boton8.place(x=430,y=450)
 
-    comenzar = Button(vtablero2,bg=comenzarc, fg=textobtn,font=("Roboto",14),text="Jugar!!!", width=15,height=3, command=comenzarJuego).place(x=80, y=610)
+    comenzar2 = Button(vtablero2,bg=comenzarc, fg=textobtn,font=("Roboto",14),text="Jugar!!!", width=15,height=3, command=comenzarJuego2).place(x=80, y=610)
     salirj = Button(vtablero2,bg=comenzarc, fg=textobtn,font=("Roboto",14),text="--Salir--", width=15,height=3, command=salir).place(x=320, y=610)
     blok()
 
@@ -237,43 +290,43 @@ def tablero3():
     for i in range(0,9):
         t3.append("N")
     #boton0
-    boton0=Button(vtablero3,width=20,height=8,command=lambda: cambiar(0))
+    boton0=Button(vtablero3,width=20,height=8,command=lambda: cambiar3(0))
     listaBotones.append(boton0) 
     boton0.place(x=30,y=50)
     #boton1
-    boton1=Button(vtablero3,width=20,height=8,command=lambda: cambiar(1))
+    boton1=Button(vtablero3,width=20,height=8,command=lambda: cambiar3(1))
     listaBotones.append(boton1)
     boton1.place(x=230,y=50)
     #boton2
-    boton2=Button(vtablero3,width=20,height=8,command=lambda: cambiar(2))
+    boton2=Button(vtablero3,width=20,height=8,command=lambda: cambiar3(2))
     listaBotones.append(boton2)
     boton2.place(x=430,y=50)
     #boton3
-    boton3=Button(vtablero3,width=20,height=8,command=lambda: cambiar(3))
+    boton3=Button(vtablero3,width=20,height=8,command=lambda: cambiar3(3))
     listaBotones.append(boton3) 
     boton3.place(x=30,y=250)
     #boton4
-    boton4=Button(vtablero3,width=20,height=8,command=lambda: cambiar(4))
+    boton4=Button(vtablero3,width=20,height=8,command=lambda: cambiar3(4))
     listaBotones.append(boton4)
     boton4.place(x=230,y=250)
     #boton5
-    boton5=Button(vtablero3,width=20,height=8,command=lambda: cambiar(5))
+    boton5=Button(vtablero3,width=20,height=8,command=lambda: cambiar3(5))
     listaBotones.append(boton5)
     boton5.place(x=430,y=250)
     #boton6
-    boton6=Button(vtablero3,width=20,height=8,command=lambda: cambiar(6))
+    boton6=Button(vtablero3,width=20,height=8,command=lambda: cambiar3(6))
     listaBotones.append(boton6) 
     boton6.place(x=30,y=450)
     #boton7
-    boton7=Button(vtablero3,width=20,height=8,command=lambda: cambiar(7))
+    boton7=Button(vtablero3,width=20,height=8,command=lambda: cambiar3(7))
     listaBotones.append(boton7)
     boton7.place(x=230,y=450)
     #boton8
-    boton8=Button(vtablero3,width=20,height=8,command=lambda: cambiar(8))
+    boton8=Button(vtablero3,width=20,height=8,command=lambda: cambiar3(8))
     listaBotones.append(boton8)
     boton8.place(x=430,y=450)
 
-    comenzar = Button(vtablero3,bg=comenzarc, fg=textobtn,font=("Roboto",14),text="Jugar!!!", width=15,height=3, command=comenzarJuego).place(x=80, y=610)
+    comenzar3 = Button(vtablero3,bg=comenzarc, fg=textobtn,font=("Roboto",14),text="Jugar!!!", width=15,height=3, command=comenzarJuego3).place(x=80, y=610)
     salirj = Button(vtablero3,bg=comenzarc, fg=textobtn,font=("Roboto",14),text="--Salir--", width=15,height=3, command=salir).place(x=320, y=610)
     blok()
 
@@ -319,12 +372,25 @@ vtablero3.withdraw()
 vtablero3.title("------Juego TOTITO 3 Misere----")
 vtablero3.geometry(tventana)
 vtablero3.configure(backg=random.choice(color))
-mtablero = Label(vtablero2,fg=negro,font=("Roboto",7), text=""" 
+mtablero = Label(vtablero3,fg=negro,font=("Roboto",7), text=""" 
 012    _|_|_
  345    _|_|_
   678    _|_|_""").place(x=50,y=1)
 
 turnoJugador = StringVar()
+
+'''
+#Venta de texto prueba
+prueba = tkin()
+Jugador1=simpledialog.askstring("Jugador #1","Ingrese el nombre del Jugador #1: ")
+turnoJugador = StringVar()
+turnoJugador.set(Jugador1)
+label = Label(prueba, text="Esto es una prueba")
+label.pack(anchor="center")
+label.config(bg="green", fg="blue", font=("Robot",20))
+label.config(textvariable=turnoJugador)
+prueba.mainloop()
+'''
 
 #se inicializa tablero
 vtablero.mainloop()
